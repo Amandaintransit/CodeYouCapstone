@@ -1,113 +1,129 @@
-﻿namespace CodeYouCapstone
+﻿using System.Security;
+using System.Transactions;
+
+namespace CodeYouCapstone
 {
     internal class Program
     {
         public static void Main(string[] args)
         {
             //Need to Add Validation Logic
+            //Need to Add Currency
 
             string userInput = string.Empty;
-            decimal childCareMother = 0;
-            decimal childCareFather = 0;
-            decimal healthInsurancePremiumMother = 0;
-            decimal healthInsurancePremiumFather = 0;
+           
+            decimal childCarePrimary = 0;
+            decimal childCareSecondary = 0;
+            decimal healthInsurancePremiumPrimary = 0;
+            decimal healthInsurancePremiumSecondary = 0;
             decimal totalGuidelineAmount = 0;
-            decimal momAllocation = 0;
-            decimal dadAllocation = 0;
+            decimal primaryCustodianAllocation = 0;
+            decimal secondaryCustodianAllocation = 0;
 
             decimal finalObligation = 60;
 
-            Console.WriteLine("How many children under 18 years of age do you and the other parent/custodian have in common?");
+            Console.WriteLine("How many children under 18 years of age do these 2 parents/custodians have in common?");
             int numberOfChildren = int.Parse(Console.ReadLine());
 
-            Income motherIncome = new Income();
-            Console.WriteLine("Please enter your monthly gross income");
-            motherIncome.GrossIncome = decimal.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter the monthly amount you pay in maintenance to your current or former spouse.\n  If you have no maintenance obligations, enter 0 ");
-            motherIncome.Maintenance = decimal.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter the monthly amount you already pay in child support for children born prior to the child/ren who are the subject(s) of this calculation.\n If you have none, enter 0");
-            motherIncome.PriorChildDeduction = decimal.Parse(Console.ReadLine());
+            
+            Console.WriteLine("Provide the following information for the primary residential parent/custodian\nFirst Name: ");
+            string firstNamePrimaryCustodian = Console.ReadLine();
+            Console.WriteLine("Last Name:  ");
+            string lastNamePrimaryCustodian = Console.ReadLine();
+
+            Income primaryIncome = new Income();
+            Console.WriteLine("Monthly Income: ");
+            primaryIncome.GrossIncome = decimal.Parse(Console.ReadLine());
+            Console.WriteLine("Maintenance Obligation, if any:  ");
+            primaryIncome.Maintenance = decimal.Parse(Console.ReadLine());
+            Console.WriteLine("Obligation for prior born children:  ");
+            primaryIncome.PriorChildDeduction = decimal.Parse(Console.ReadLine());
+
+            
+            Console.WriteLine("Provide the following information for the other parent/custodian\nFirst Name: ");
+            string firstNameSecondaryCustodian = Console.ReadLine();
+            Console.WriteLine("Last Name:  ");
+            string lastNameSecondaryCustodian = Console.ReadLine();
+
+            Income secondaryIncome = new Income();
+            Console.WriteLine("Monthly Income: ");
+            secondaryIncome.GrossIncome = decimal.Parse(Console.ReadLine());
+            Console.WriteLine("Maintenance Obligation, if any:  ");
+            secondaryIncome.Maintenance = decimal.Parse(Console.ReadLine());
+            Console.WriteLine("Obligation for prior born children:  ");
+            secondaryIncome.PriorChildDeduction = decimal.Parse(Console.ReadLine());
 
 
-
-            Income fatherIncome = new Income();
-            Console.WriteLine("Please enter the other parent/custodian's monthly gross income");
-            fatherIncome.GrossIncome = decimal.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter the monthly amount the other parent/custodian pays in maintenance to you or a former spouse.\n  If the other parent/custodian has no maintenance obligations, enter 0 ");
-            fatherIncome.Maintenance = decimal.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter the monthly amount thenother parent/custodian already pays in child support for children born prior to the child/ren who are the subject(s) of this calculation.\n If the other parent/custodian has none, enter 0");
-            fatherIncome.PriorChildDeduction = decimal.Parse(Console.ReadLine());
-
-            decimal MotherAGI = Income.CalculateAGI(motherIncome.GrossIncome, motherIncome.Maintenance, motherIncome.PriorChildDeduction);
-            decimal FatherAGI = Income.CalculateAGI(fatherIncome.GrossIncome, fatherIncome.Maintenance, fatherIncome.PriorChildDeduction);
-            decimal combinedAGI = MotherAGI + FatherAGI;
-            decimal fatherPercentage = MotherAGI / combinedAGI;
-            decimal motherPercentage = FatherAGI / combinedAGI;
+            decimal PrimaryAGI = Income.CalculateAGI(primaryIncome.GrossIncome, primaryIncome.Maintenance, primaryIncome.PriorChildDeduction);
+            decimal SecondaryAGI = Income.CalculateAGI(secondaryIncome.GrossIncome, secondaryIncome.Maintenance, secondaryIncome.PriorChildDeduction);
+            decimal combinedAGI = PrimaryAGI + SecondaryAGI;
+            decimal primaryPercentage = PrimaryAGI / combinedAGI;
+            decimal secondaryPercentage = SecondaryAGI / combinedAGI;
 
             //Will need to read data from chart to extract the amount and assign it to a variable.
-            Console.WriteLine($"Your Adjusted Gross Income is:  {MotherAGI}, {motherPercentage} percent of the combined income.\nThe other parent/custodian's Adjusted Gross Income is:  {FatherAGI}, {fatherPercentage} percent of the combined income. \nWith a combined income of {combinedAGI}, the total support amount for {numberOfChildren} children is CHART AMOUNT HERE");
+            Console.WriteLine($"The primary residential parent's Adjusted Gross Income is:  {PrimaryAGI}, {primaryPercentage} percent of the combined income.\nThe other parent/custodian's Adjusted Gross Income is:  {SecondaryAGI}, {secondaryPercentage} percent of the combined income. \nWith a combined income of {combinedAGI}, the total support amount for {numberOfChildren} children is CHART AMOUNT HERE");
             decimal guidelineAmountOfSupport = 0;
 
-            totalGuidelineAmount = childCareMother + childCareFather + healthInsurancePremiumMother + healthInsurancePremiumFather;
+            totalGuidelineAmount = childCarePrimary + childCareSecondary + healthInsurancePremiumPrimary + healthInsurancePremiumSecondary;
 
-            Console.WriteLine("Please enter the amount you pay each month for childcare.\nIf the answer is none, please enter 0.");
-            childCareMother = decimal.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter the amount the other parent/custodian pays each month for childcare.\nIf the answer is none, please enter 0.");
-            childCareFather = decimal.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter the amount of health care premiums you incur each month for the child.\nIf the answer is none, please enter 0.");
-            healthInsurancePremiumMother = decimal.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter the amount of health care premiums the other parent/custodian incurs each month for childcare.\nIf the answer is none, please enter 0.");
-            healthInsurancePremiumFather = decimal.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the amount the primary residental parent pays each month for childcare\nIf none, enter 0:");
+            childCarePrimary = decimal.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the amount the other parent/custodian pays each month for childcare.\nIf none, enter 0:");
+            childCareSecondary = decimal.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the amount of health care premiums the primary residential parent incurs each month for the child.\nIf none, enter 0:");
+            healthInsurancePremiumPrimary = decimal.Parse(Console.ReadLine());
+            Console.WriteLine("Please enter the amount of health care premiums the other parent/custodian incurs each month for the child.\nIf none, enter 0:");
+            healthInsurancePremiumSecondary = decimal.Parse(Console.ReadLine());
 
-            momAllocation = totalGuidelineAmount / motherPercentage - (childCareMother + healthInsurancePremiumMother);
-            dadAllocation = totalGuidelineAmount / fatherPercentage - (childCareFather + healthInsurancePremiumFather);
+            primaryCustodianAllocation = totalGuidelineAmount / primaryPercentage - (childCarePrimary + healthInsurancePremiumPrimary);
+            secondaryCustodianAllocation = totalGuidelineAmount / secondaryPercentage - (childCareSecondary + healthInsurancePremiumSecondary);
 
-            Console.WriteLine("How many days (a \"day\" is 12 or more hours) per year does the other parent/custodian have physical possession of the child/ren?\nIf you have 50/50 timesharing, enter \"182\"");
+            Console.WriteLine("How many days (a \"day\" is 12 or more hours) per year does the other parent/custodian (not the primary residential parent) have physical possession of the child/ren?\nIf timesharing is 50/50 equal, enter \"182\"");
             int sharedParentingDays = int.Parse(Console.ReadLine());
 
             if (sharedParentingDays >= 88 && sharedParentingDays <= 115)
             {
-                finalObligation = dadAllocation * .15m;
+                finalObligation = secondaryCustodianAllocation * .15m;
                 Console.WriteLine($"Parent B's Child Support Obligation is {finalObligation}");
             }
             else if (sharedParentingDays >= 116 && sharedParentingDays <= 129)
             {
-                finalObligation = dadAllocation * .205m;
+                finalObligation = secondaryCustodianAllocation * .205m;
                 Console.WriteLine($"Parent B's Child Support Obligation is {finalObligation}");
             }
             else if (sharedParentingDays >= 130 && sharedParentingDays <= 142)
             {
-                finalObligation = dadAllocation * .25m;
+                finalObligation = secondaryCustodianAllocation * .25m;
                 Console.WriteLine($"Parent B's Child Support Obligation is {finalObligation}");
             }
             else if (sharedParentingDays >= 143 && sharedParentingDays <= 152)
             {
-                finalObligation = dadAllocation * .305m;
+                finalObligation = secondaryCustodianAllocation * .305m;
                 Console.WriteLine($"Parent B's Child Support Obligation is {finalObligation}");
             }
             else if (sharedParentingDays >= 153 && sharedParentingDays <= 162)
             {
-                finalObligation = dadAllocation * .36m;
+                finalObligation = secondaryCustodianAllocation * .36m;
                 Console.WriteLine($"Parent B's Child Support Obligation is {finalObligation}");
             }
             else if (sharedParentingDays >= 163 && sharedParentingDays <= 172)
             {
-                finalObligation = dadAllocation * .42m;
+                finalObligation = secondaryCustodianAllocation * .42m;
                 Console.WriteLine($"Parent B's Child Support Obligation is {finalObligation}");
             }
             else if (sharedParentingDays >= 173 && sharedParentingDays <= 181)
             {
-                finalObligation = dadAllocation * .485m;
+                finalObligation = secondaryCustodianAllocation * .485m;
                 Console.WriteLine($"Parent B's Child Support Obligation is {finalObligation}");
             }
             else if (sharedParentingDays >= 182)
             {
-                finalObligation = dadAllocation * .50m;
+                finalObligation = secondaryCustodianAllocation * .50m;
                 Console.WriteLine($"Parent B's Child Support Obligation is {finalObligation}");
             }
             else if (sharedParentingDays < 88)
             {
-                finalObligation = dadAllocation;
+                finalObligation = secondaryCustodianAllocation;
                 Console.WriteLine($"Parent B's Child Support Obligation is {finalObligation}");
             }
 
