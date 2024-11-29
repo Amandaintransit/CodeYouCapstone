@@ -1,33 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CodeYouCapstone
 {
     public class Chart
     {
-        string primaryCustodian;
-        string secondaryCustodian;
-        decimal grossIncomePrimary;
-        decimal grossIncomeSecondary;
-        decimal monthlyMaintenancePrimary;
-        decimal monthlyMaintenanceSecondary;
-        decimal monthlyDeductionPriorChildrenPrimary;
-        decimal monthlyDeductionPriorChildrenSecondary;
-        decimal AGIPrimary;
-        decimal AGIPrimarySecondary;
-        decimal CombinedAGI;
-        decimal PercentageAGIPrimary;
-        decimal PercentageAGIPrimarySecondary;
-        decimal InitialObligation;
-        decimal childCarePrimary = 0;
-        decimal childCareSecondary = 0;
-        decimal healthInsurancePremiumPrimary = 0;
-        decimal healthInsurancePremiumSecondary = 0;
-        decimal totalGuidelineAmount = 0;
-        decimal primaryCustodianAllocation = 0;
-        decimal secondaryCustodianAllocation = 0;
+        public string PrimaryCustodian { get; set; } = string.Empty;
+        public string SecondaryCustodian { get; set; } = string.Empty ;
+        public int NumberOfChildren { get; set; }
+        public decimal GrossIncomePrimary {  get; set; }
+        public decimal GrossIncomeSecondary { get; set; }
+        public decimal? MonthlyMaintenancePrimary { get; set; }
+        public decimal? MonthlyMaintenanceSecondary { get; set; }
+        public decimal? MonthlyDeductionPriorChildrenPrimary { get; set; }
+        public decimal? MonthlyDeductionPriorChildrenSecondary { get; set; }
+        //AGI primary can only be 0 if caring for child under 3
+        public decimal? AGIPrimary { get; set; }    
+        public bool IsCaringForChildUnderThree { get; set; } = false;
+       //cannot be 0 -minimum wage must be imputed
+        public decimal AGIPrimarySecondary { get; set; }
+        public bool IsUnderSelfSupportReserveThreshold { get; set; } = false;
+        public decimal CombinedAGI { get;  set; }
+
+        public decimal PercentageAGIPrimary { get; set; }   
+        public decimal PercentageAGIPrimarySecondary { get; set; }
+        public decimal InitialObligation { get; set; }
+        public decimal? ChildCarePrimary { get; set; }  
+        public decimal? ChildCareSecondary { get; set; }
+        public decimal? HealthInsurancePremiumPrimary { get; set; } 
+        public decimal? HealthInsurancePremiumSecondary {  get; set; }
+        public decimal TotalGuidelineAmount {  get; set; }
+        public decimal PrimaryCustodianAllocation {  get; set; }
+        public decimal SecondaryCustodianAllocation { get; set; }   
+        public decimal FinalObligation { get; set; }
     }
 }
