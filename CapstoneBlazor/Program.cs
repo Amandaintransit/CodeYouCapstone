@@ -10,6 +10,7 @@ namespace CapstoneBlazor
 
             // Add services to the container.
             builder.Services.AddRazorComponents();
+          //      .AddInteractiveServerComponents();
 
             var app = builder.Build();
 
@@ -27,7 +28,7 @@ namespace CapstoneBlazor
             app.UseAntiforgery();
 
             app.MapRazorComponents<App>();
-
+          //       .AddInteractiveServerRenderMode();
             app.Run();
         }
     }

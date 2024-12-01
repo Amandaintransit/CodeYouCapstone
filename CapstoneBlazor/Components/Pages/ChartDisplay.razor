@@ -1,18 +1,25 @@
 ﻿@page "/chartdisplay"
-<h1>Child Support Chart</h1>
+@using CapstoneBlazor;
 
-<table class="table table-light">
-    <thead class="table-primary">
-        <tr>
-        
-            <th></th>
-            <th>Primary Custodian</th>
-            <th>Secondary Custodian</th>
-            <th>Combined/Obligation</th>
 
-        </tr>
-    </thead>
-    <tbody>
+<EditForm Model="@primaryCustodian">
+    <label for="PrimaryFirstName">Primary Parent's First Name:</label>
+    <InputText id="PrimaryFirstName"@bind-Value="@primaryCustodian.FirstName"></InputText>
+    <br />
+    <label for="PrimaryLastName">Primary Parent's Last Name:</label>
+    <InputText id="PrimaryLastName" @bind-Value="@primaryCustodian.LastName"></InputText>
+    <br />
+    <label for="SecondaryFirstName">Secondary Parent's First Name:</label>
+    <InputText id="SecondaryFirstName"@bind-Value="@secondaryCustodian.FirstName"></InputText>
+    <br />
+    <label for="SecondaryLastName">Secondary Parent's Last Name:</label>
+    <InputText id="SecondaryLastName" @bind-Value="@secondaryCustodian.LastName"></InputText>
+    <br />
 
-    </tbody>
-</table>
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code{
+    PrimaryCustodian primaryCustodian = new();
+    SecondaryCustodian secondaryCustodian = new();
+}

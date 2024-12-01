@@ -4,6 +4,7 @@ namespace CodeYouCapstone
 {
     public class Chart
     {
+        
         public string PrimaryCustodian { get; set; } = string.Empty;
         public string SecondaryCustodian { get; set; } = string.Empty ;
         public int NumberOfChildren { get; set; }
@@ -32,5 +33,10 @@ namespace CodeYouCapstone
         public decimal PrimaryCustodianAllocation {  get; set; }
         public decimal SecondaryCustodianAllocation { get; set; }   
         public decimal FinalObligation { get; set; }
+
+        public void DisplayChart()
+        {
+            
+        }
     }
 }
