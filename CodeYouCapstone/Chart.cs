@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-
 namespace CodeYouCapstone
 {
     public class Chart
@@ -34,9 +33,6 @@ namespace CodeYouCapstone
         public decimal SecondaryCustodianAllocation { get; set; }   
         public decimal FinalObligation { get; set; }
 
-        public void DisplayChart()
-        {
-            
-        }
+        
     }
 }
