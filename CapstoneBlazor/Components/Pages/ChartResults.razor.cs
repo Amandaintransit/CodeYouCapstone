@@ -2,7 +2,7 @@
 {
     public partial class ChartResults
     {
-        public decimal? AGIPrimary { get; set; }
+        public decimal AGIPrimary { get; set; }
         public decimal AGIPrimarySecondary { get; set; }
         public bool IsUnderSelfSupportReserveThreshold { get; set; } = false;
         public decimal CombinedAGI { get; set; }

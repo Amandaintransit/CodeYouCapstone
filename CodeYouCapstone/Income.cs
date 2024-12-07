@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodeYouCapstone
 {
-    partial class Income
+    public partial class Income
     {
 
         private decimal _grossIncome;
