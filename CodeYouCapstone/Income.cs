@@ -30,10 +30,9 @@ namespace CodeYouCapstone
                 get { return _priorChildDeduction; }
                 set { _priorChildDeduction = value; }
             }
-            public static decimal CalculateAGI(decimal GrossIncome, decimal Maintenance, decimal PriorChildDeduction)
-            {
-                return GrossIncome - (Maintenance + PriorChildDeduction);
-            }
-        
+        public static decimal CalculateAGI(decimal GrossIncome, decimal Maintenance, decimal PriorChildDeduction)
+        {
+            return GrossIncome - (Maintenance + PriorChildDeduction);
+        }
     }
 }

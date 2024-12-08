@@ -4,62 +4,60 @@
 @using CodeYouCapstone;
 @using Microsoft.AspNetCore.Components.Forms;
 
-  
-<EditForm Model ="Chart" method="post"  OnSubmit="Submit" FormName="InitialDataForm">
+
+
+<EditForm Model ="Chart" OnValidSubmit="HandleFormSubmission" FormName="InitialDataForm">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+
+    <label for="PrimaryFirstName">Primary Parent's First Name:</label>
+    <InputText id="PrimaryFirstName"@bind-Value="@chart.PrimaryFirstName"></InputText>
+    <br />
+    <label for="PrimaryLastName">Primary Parent's Last Name:</label>
+    <InputText id="PrimaryLastName" @bind-Value="@chart.PrimaryLastName"></InputText>
+    <br />
+    <label for="SecondaryFirstName">Secondary Parent's First Name:</label>
+    <InputText id="SecondaryFirstName"@bind-Value="@chart.SecondaryFirstName"></InputText>
+    <br />
+    <label for="SecondaryLastName">Secondary Parent's Last Name:</label>
+    <InputText id="SecondaryLastName" @bind-Value="@chart.SecondaryLastName"></InputText>
+    <br />
+    <label for="NumberofChildren">Number of Children under 18:</label>
+    <InputNumber id="NumberofChildren" @bind-Value="@chart.NumberOfChildren"></InputNumber>
+    <br />
+    <label for="GrossIncomePrimary">Gross Income of Primary Custodian:</label>
+    <InputNumber id="GrossIncomePrimary" @bind-Value="@chart.GrossIncomePrimary"></InputNumber>
+    <br />
+    <label for="GrossIncomeSecondary">Gross Income of Secondary Custodian:</label>
+    <InputNumber id="NumberofChildren" @bind-Value="@chart.GrossIncomeSecondary"></InputNumber>
+    <br />
+    <label for="MonthlyMaintenancePrimary">Monthly Maintenance Obligation of Primary Custodian:</label>
+    <InputNumber id="MonthlyMaintenancePrimary" @bind-Value="@chart.MonthlyMaintenancePrimary"></InputNumber>
+    <br />
+    <label for="MonthlyMaintenanceSecondary">Monthly Maintenance Obligation of Secondary Custodian:</label>
+    <InputNumber id="MonthlyMaintenanceSecondary" @bind-Value="@chart.MonthlyMaintenanceSecondary"></InputNumber>
+    <br />
+    <label for="MonthlyDeductionPriorChildrenPrimary">Monthly Prior Born Children Obligation of Secondary Custodian:</label>
+    <InputNumber id="MonthlyDeductionPriorChildrenPrimary" @bind-Value="@chart.MonthlyDeductionPriorChildrenPrimary"></InputNumber>
+    <br /> 
+    <label for="MonthlyDeductionPriorChildrenSecondary">Monthly Prior Born Children Obligation of Secondary Custodian:</label>
+    <InputNumber id="MonthlyDeductionPriorChildrenSecondary" @bind-Value="@chart.MonthlyDeductionPriorChildrenSecondary"></InputNumber>
+    <br />
+
+    <button type="submit">Submit</button>
+
    
 
-  
-
-        <label for="PrimaryFirstName">Primary Parent's First Name:</label>
-        <InputText id="PrimaryFirstName"@bind-Value="@chart.PrimaryFirstName"></InputText>
-        <br />
-        <label for="PrimaryLastName">Primary Parent's Last Name:</label>
-        <InputText id="PrimaryLastName" @bind-Value="@chart.PrimaryLastName"></InputText>
-        <br />
-        <label for="SecondaryFirstName">Secondary Parent's First Name:</label>
-        <InputText id="SecondaryFirstName"@bind-Value="@chart.SecondaryFirstName"></InputText>
-        <br />
-        <label for="SecondaryLastName">Secondary Parent's Last Name:</label>
-        <InputText id="SecondaryLastName" @bind-Value="@chart.SecondaryLastName"></InputText>
-        <br />
-        <label for="NumberofChildren">Number of Children under 18:</label>
-        <InputNumber id="NumberofChildren" @bind-Value="@chart.NumberOfChildren"></InputNumber>
-        <br />
-        <label for="GrossIncomePrimary">Gross Income of Primary Custodian:</label>
-        <InputNumber id="GrossIncomePrimary" @bind-Value="@chart.GrossIncomePrimary"></InputNumber>
-        <br />
-        <label for="GrossIncomeSecondary">Gross Income of Secondary Custodian:</label>
-        <InputNumber id="NumberofChildren" @bind-Value="@chart.GrossIncomeSecondary"></InputNumber>
-        <br />
-        <label for="MonthlyMaintenancePrimary">Monthly Maintenance Obligation of Primary Custodian:</label>
-        <InputNumber id="MonthlyMaintenancePrimary" @bind-Value="@chart.MonthlyMaintenancePrimary"></InputNumber>
-        <br />
-        <label for="MonthlyMaintenanceSecondary">Monthly Maintenance Obligation of Secondary Custodian:</label>
-        <InputNumber id="MonthlyMaintenanceSecondary" @bind-Value="@chart.MonthlyMaintenanceSecondary"></InputNumber>
-        <br />
-        <label for="MonthlyDeductionPriorChildrenPrimary">Monthly Prior Born Children Obligation of Secondary Custodian:</label>
-        <InputNumber id="MonthlyDeductionPriorChildrenPrimary" @bind-Value="@chart.MonthlyDeductionPriorChildrenPrimary"></InputNumber>
-        <br /> 
-        <label for="MonthlyDeductionPriorChildrenSecondary">Monthly Prior Born Children Obligation of Secondary Custodian:</label>
-        <InputNumber id="MonthlyDeductionPriorChildrenSecondary" @bind-Value="@chart.MonthlyDeductionPriorChildrenSecondary"></InputNumber>
-        <br />
+</EditForm>
 
 
-
-
-
-        <button type="submit">Submit</button>
-
-
-        </EditForm>
-
-    
-    @code {
+@code {
 
     Charts chart = new Charts();
-       }
-    
-    Display @PrimaryAGI
-    Display @SecondaryAGI
+    }
 
+    <input@bind="PrimaryAGI"></input@bind>"
+    <input@bind=SecondaryAGI></input@bind>
 
+    Primary AGI is: @PrimaryAGI
+    SecondaryAGI is:@SecondaryAGI

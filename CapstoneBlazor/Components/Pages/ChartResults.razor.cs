@@ -1,9 +1,14 @@
-﻿namespace CapstoneBlazor.Components.Pages
+﻿using Microsoft.AspNetCore.Components;
+using CodeYouCapstone;
+namespace CapstoneBlazor.Components.Pages
 {
     public partial class ChartResults
     {
-        public decimal AGIPrimary { get; set; }
-        public decimal AGIPrimarySecondary { get; set; }
+       
+
+       
+
+     
         public bool IsUnderSelfSupportReserveThreshold { get; set; } = false;
         public decimal CombinedAGI { get; set; }
 

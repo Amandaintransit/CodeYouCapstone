@@ -25,7 +25,6 @@ namespace CodeYouCapstone
         public decimal ChildCareSecondary { get; set; }
         public decimal HealthInsurancePremiumPrimary { get; set; } 
         public decimal HealthInsurancePremiumSecondary {  get; set; }
-        
 
         
     }
