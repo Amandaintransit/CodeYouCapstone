@@ -16,9 +16,7 @@ namespace CapstoneBlazor.Components.Pages
         {
            Chart ??= new();
 
-
-
         }
-
+        
     }
 }

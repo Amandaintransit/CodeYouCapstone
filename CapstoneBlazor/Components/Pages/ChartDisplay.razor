@@ -2,10 +2,20 @@
 @using CapstoneBlazor;
 @using CodeYouCapstone;
 
- 
-      
-    <EditForm Model="@Chart">
-   
+@if (LastSubmitResult != null)
+{
+    <h2>
+        Last submit status: @LastSubmitResult
+
+    </h2>
+
+}
+
+
+<EditForm Model="@Chart" FormName="ChartDisplay" method=post OnValidSubmit="@ValidFormSubmitted" OnInvalidSubmit="@InvalidFormSubmitted">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+
     <label for="PrimaryFirstName">Primary Parent's First Name:</label>
     <InputText id="PrimaryFirstName"@bind-Value="@chart.PrimaryCustodian"></InputText>
     <br />
@@ -39,17 +49,40 @@
     <label for="MonthlyDeductionPriorChildrenSecondary">Monthly Prior Born Children Obligation of Secondary Custodian:</label>
     <InputNumber id="MonthlyDeductionPriorChildrenSecondary" @bind-Value="@chart.MonthlyDeductionPriorChildrenSecondary"></InputNumber>
     <br />
-    
-   
+    <label for="PrimaryAGI">Primary parent's Adjusted Gross Income':</label>
+
+
+
 
     <button type="submit">Submit</button>
+
+    <div class="nav-item px-3">
+        <NavLink class="nav-link" href="/chartresults">
+            <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Calculate
+        </NavLink>
+    </div>
 
 </EditForm>
 
 @code {
 
-    Chart chart = new Chart();
-    
-}
 
+
+    Chart chart = new Chart();
+    string LastSubmitResult;
+
+    void ValidFormSubmitted(EditContext context)
+    {
+
+        chart = ((Chart)context.Model);
+        LastSubmitResult = "onValidSubmit was executed";
+    }
+    void InvalidFormSubmitted(EditContext context)
+    {
+        
+        LastSubmitResult = "OnInvalidSubmit was executed";
+    }
+
+}
+    
 

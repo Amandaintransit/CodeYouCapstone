@@ -1,0 +1,76 @@
+﻿@page "/fullchart"
+@rendermode InteractiveServer
+@using CapstoneBlazor;
+@using CodeYouCapstone;
+@using Microsoft.AspNetCore.Components.Forms;
+
+@if (LastSubmitResult !=null)
+{
+    <h2>
+        Last submit status: @LastSubmitResult
+
+    </h2>
+
+}
+
+<EditForm Model="@fullchart" OnValidSubmit="@ValidFormSubmitted" OnInvalidSubmit="@InvalidFormSubmitted">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+
+    <label for="PrimaryFirstName">Primary Parent's First Name:</label>
+    <InputText id="PrimaryFirstName" @bind-Value="@fullchart.PrimaryFirstName"></InputText>
+    <br />
+    <label for="PrimaryLastName">Primary Parent's Last Name:</label>
+    <InputText id="PrimaryLastName" @bind-Value="@fullchart.PrimaryLastName"></InputText>
+    <br />
+    <label for="SecondaryFirstName">Secondary Parent's First Name:</label>
+    <InputText id="SecondaryFirstName" @bind-Value="@fullchart.SecondaryFirstName"></InputText>
+    <br />
+    <label for="SecondaryLastName">Secondary Parent's Last Name:</label>
+    <InputText id="SecondaryLastName" @bind-Value="@fullchart.SecondaryLastName"></InputText>
+    <br />
+    <label for="NumberofChildren">Number of Children under 18:</label>
+    <InputNumber id="NumberofChildren" @bind-Value="@fullchart.NumberOfChildren"></InputNumber>
+    <br />
+    <label for="GrossIncomePrimary">Gross Income of Primary Custodian:</label>
+    <InputNumber id="GrossIncomePrimary" @bind-Value="@fullchart.GrossIncomePrimary"></InputNumber>
+    <br />
+    <label for="GrossIncomeSecondary">Gross Income of Secondary Custodian:</label>
+    <InputNumber id="NumberofChildren" @bind-Value="@fullchart.GrossIncomeSecondary"></InputNumber>
+    <br />
+    <label for="MonthlyMaintenancePrimary">Monthly Maintenance Obligation of Primary Custodian:</label>
+    <InputNumber id="MonthlyMaintenancePrimary" @bind-Value="@fullchart.MonthlyMaintenancePrimary"></InputNumber>
+    <br />
+    <label for="MonthlyMaintenanceSecondary">Monthly Maintenance Obligation of Secondary Custodian:</label>
+    <InputNumber id="MonthlyMaintenanceSecondary" @bind-Value="@fullchart.MonthlyMaintenanceSecondary"></InputNumber>
+    <br />
+    <label for="MonthlyDeductionPriorChildrenPrimary">Monthly Prior Born Children Obligation of Secondary Custodian:</label>
+    <InputNumber id="MonthlyDeductionPriorChildrenPrimary" @bind-Value="@fullchart.MonthlyDeductionPriorChildrenPrimary"></InputNumber>
+    <br />
+    <label for="MonthlyDeductionPriorChildrenSecondary">Monthly Prior Born Children Obligation of Secondary Custodian:</label>
+    <InputNumber id="MonthlyDeductionPriorChildrenSecondary" @bind-Value="@fullchart.MonthlyDeductionPriorChildrenSecondary"></InputNumber>
+    <br />
+
+    <button type="submit"></button>
+
+
+
+</EditForm>
+
+
+@code {
+    
+
+    FullChart fullchart = new FullChart();
+    
+    string LastSubmitResult;
+
+    void ValidFormSubmitted(EditContext context)
+    {
+        LastSubmitResult = "onValidSubmit was executed";
+    }
+    void InvalidFormSubmitted(EditContext context)
+    {
+        LastSubmitResult = "OnInvalidSubmit was executed";
+    }
+}    
